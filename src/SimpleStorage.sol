@@ -4,6 +4,7 @@ pragma solidity 0.8.24;
 
 contract SimpleStorage {
     uint256 private s_favouriteNumber;
+    address private s_executor;
 
     struct Person {
         uint256 favouriteNumber;
@@ -15,7 +16,12 @@ contract SimpleStorage {
 
     Person[] public listOfPersons;
 
+    constructor(address executor) {
+        s_executor = executor;
+    }
+
     function store(uint256 favouriteNumber) external {
+        if (msg.sender != s_executor) revert();
         s_favouriteNumber = favouriteNumber;
     }
 
