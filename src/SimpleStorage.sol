@@ -3,6 +3,8 @@
 pragma solidity 0.8.24;
 
 contract SimpleStorage {
+    error NotAnExecutor();
+
     uint256 private s_favouriteNumber;
     address private s_executor;
 
@@ -21,7 +23,7 @@ contract SimpleStorage {
     }
 
     function store(uint256 favouriteNumber) external {
-        if (msg.sender != s_executor) revert();
+        if (msg.sender != s_executor) revert NotAnExecutor();
         s_favouriteNumber = favouriteNumber;
     }
 
